@@ -6,12 +6,18 @@ app.use(express.json());
 
 const customers = []
 
-/**
- * cpf - string
- * name - string 
- * id -uuid
- * statement - [].
- */
+function verifyAccountExists(request, response, next) {
+    const { cpf } = request.headers;
+    const findedCustomer = customers.find(customer => customer.cpf === cpf);
+
+    if(!findedCustomer) {
+        return response.status(400).send({error: "Customer not found."})
+    }
+
+    request.customer = findedCustomer;
+    return next();
+}
+
 app.post('/account', (request, response) => {
     const { cpf, name } = request.body;
     
@@ -31,13 +37,24 @@ app.post('/account', (request, response) => {
     
 })
 
-app.get('/statement/:cpf', (request, response) => {
-    
-    const { cpf } = request.params;
-
-    const findedCustomer = customers.find(customer => customer.cpf === cpf);
-
-    return response.json(findedCustomer.statement);
+app.get('/statement', verifyAccountExists, (request, response) => {
+    const customer = request.customer;
+    return response.json(customer.statement);
 });
+
+app.post('/deposit', verifyAccountExists, (request, response) => {
+    const { description, amount } = request.body;
+    const { customer } = request;
+
+    const statementOperation = {
+        description,
+        amount,
+        created_at: new Date(),
+        type: 'credit'
+    };
+
+    customer.statement.push(statementOperation);
+    return response.status(201).send();
+})
 
 app.listen(3333);
