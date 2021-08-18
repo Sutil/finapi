@@ -14,6 +14,6 @@
 - [X] Should not be possíbel to create an account that already exists
 - [X] Should not be possibel to deposit in account that not exists
 - [X] Should not be possible to get a statement of account that not exists
-- [] Should not be possible to withdraw from account thta not exists
-- [] Should not be possible to delete an account that not exists.
-- [] Should not be possible to withdraw when the balance is not enough
+- [ ] Should not be possible to withdraw from account thta not exists
+- [ ] Should not be possible to delete an account that not exists.
+- [ ] Should not be possible to withdraw when the balance is not enough
