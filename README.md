@@ -1,7 +1,7 @@
 ### Requisitos
 
-- [] Should be possible to create account
-- [] Should be possible to get a bank statement
+- [X] Should be possible to create account
+- [X] Should be possible to get a bank statement
 - [] Should be possible to deposit
 - [] Should be possible to withdraw
 - [] Should be possible to get statement by customer and data
@@ -11,7 +11,7 @@
 
 ### Regras de negócio
 
-- [] Should not be possíbel to create an account that already exists
+- [X] Should not be possíbel to create an account that already exists
 - [] Should not be possibel to deposit in account that not exists
 - [] Should not be possible to get a statement of account that not exists
 - [] Should not be possible to withdraw from account thta not exists
