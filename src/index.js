@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const app = express();
@@ -16,6 +17,16 @@ function verifyAccountExists(request, response, next) {
 
     request.customer = findedCustomer;
     return next();
+}
+
+function getBalance(statement) {
+    return statement.reduce((acc, operation) => {
+        if(operation.type === 'credit') {
+            return acc + operation.amount;
+        } else {
+            return acc - operation.amount;
+        }
+    }, 0);
 }
 
 app.post('/account', (request, response) => {
@@ -55,6 +66,28 @@ app.post('/deposit', verifyAccountExists, (request, response) => {
 
     customer.statement.push(statementOperation);
     return response.status(201).send();
-})
+});
+
+app.post('/withdraw', verifyAccountExists, (request, response) => {
+    const { amount } = request.body;
+    const { customer } = request;
+
+    if(getBalance(customer.statement) < amount) {
+        return response.status(400).json({error: "Insufficient funds!"});
+    }
+
+    const statementOperation = {
+        amount,
+        created_at: new Date(),
+        type: 'debit'
+    };
+
+    customer.statement.push(statementOperation);
+
+    return response.status(201).send();
+
+});
+
+
 
 app.listen(3333);
