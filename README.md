@@ -1,4 +1,4 @@
-### Requisitos
+### Requirements
 
 - [X] Should be possible to create account
 - [X] Should be possible to get a bank statement
@@ -10,7 +10,7 @@
 - [X] Should be possible to delete an account
 - [X] Should be possible to get the account balance
 
-### Regras de negócio
+### Business rules
 
 - [X] Should not be possíbel to create an account that already exists
 - [X] Should not be possibel to deposit in account that not exists
