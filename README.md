@@ -4,9 +4,9 @@
 - [X] Should be possible to get a bank statement
 - [X] Should be possible to deposit
 - [X] Should be possible to withdraw
-- [ ] Should be possible to get statement by customer and data
-- [ ] Should be possible to update account data
-- [ ] Should be possible to get customer account data
+- [X] Should be possible to get statement by customer and data
+- [X] Should be possible to update account data
+- [X] Should be possible to get customer account data
 - [ ] Should be possible to delete an account
 
 ### Regras de negócio
