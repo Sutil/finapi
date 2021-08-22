@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response, json } = require('express');
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const app = express();
@@ -86,6 +86,19 @@ app.post('/withdraw', verifyAccountExists, (request, response) => {
 
     return response.status(201).send();
 
+});
+
+app.get('/statement/date', verifyAccountExists, (request, response) => {
+    const { customer } = request;
+    const { date } = request.query;
+
+    const dateFormat = date + ' 00:00';
+
+    const statement = customer.statement
+        .filter(
+            s => s.created_at.toDateString() === new Date(dateFormat).toDateString());    
+
+    return response.json(statement);
 });
 
 
