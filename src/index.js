@@ -115,6 +115,22 @@ app.get('/account', verifyAccountExists, (request, response) => {
     const { customer } = request;
 
     return response.json(customer);
+});
+
+app.delete('/account', verifyAccountExists, (request, response) => {
+    const { customer } = request;
+    const idx = customers.findIndex(c => c.cpf === customer.cpf);
+
+    customers.splice(idx, 1);
+    return response.status(204).send();
+});
+
+app.get('/balance', verifyAccountExists, (request, response) => {
+    const { customer } = request;
+
+    const balance = getBalance(customer.statement);
+
+    return response.json(balance);
 })
 
 
